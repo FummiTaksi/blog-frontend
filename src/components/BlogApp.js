@@ -22,7 +22,6 @@ class BlogApp extends React.Component {
         this.setState({
             user: newToken
         })
-        this.forceUpdate()
     }
 
     tokenIsDefined = () => {
