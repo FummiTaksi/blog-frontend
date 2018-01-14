@@ -1,6 +1,5 @@
 import React from 'react'
-import loginService from '../services/loginService'
-
+import loginService from '../../services/loginService'
 
 class SignInForm extends React.Component {
 
@@ -9,7 +8,6 @@ class SignInForm extends React.Component {
         this.state = {
             username: "",
             password: "",
-            user: ""
         }
     }
 
@@ -22,9 +20,9 @@ class SignInForm extends React.Component {
     setTokenAndResetFields = (token) => {
         this.setState({
             username: "",
-            password: "",
-            user: token
+            password: ""
         })
+        this.props.setToken(token)
     }
 
     logIn = async (e) => {

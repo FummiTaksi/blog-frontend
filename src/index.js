@@ -1,5 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SignInForm from './components/SignInForm'
+import BlogApp from './components/BlogApp'
 
-ReactDOM.render(<SignInForm />, document.getElementById('root'));
+ReactDOM.render(<BlogApp />, document.getElementById('root'));
