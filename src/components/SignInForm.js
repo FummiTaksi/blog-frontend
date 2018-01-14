@@ -17,24 +17,26 @@ class SignInForm extends React.Component {
         this.setState({
             [e.target.name]: e.target.value
         })
-        console.log(this.state[e.target.name])
+    }
+
+    setTokenAndResetFields = (token) => {
+        this.setState({
+            username: "",
+            password: "",
+            user: token
+        })
     }
 
     logIn = async (e) => {
         e.preventDefault();
-        console.log("login funktiossa!")
         const credentials = {
             username: this.state.username,
              password: this.state.password
             }
         const response = await loginService.login(credentials)
-        console.log("response.data",response.data)
-        this.setState({
-            username: "",
-            password: "",
-            user: response.data.token
-        })
-        console.log("TOKEN: ", this.state.user)
+        if (response.data) {
+            this.setTokenAndResetFields(response.data.token)
+        }
     }
 
     render() {
