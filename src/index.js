@@ -1,10 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import SignInForm from './components/SignInForm'
 
-
-
-const App = () => {
-    return (<h1>Sign in </h1>)
-}
-
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<SignInForm />, document.getElementById('root'));
