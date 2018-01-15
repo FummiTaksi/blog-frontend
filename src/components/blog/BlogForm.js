@@ -21,10 +21,15 @@ class BlogForm extends React.Component {
     }
 
     createBlog =  () => {
-        const response = blogService.create(this.state)
+        const blog = {
+            title: this.state.title,
+            author: this.state.author,
+            url: this.state.url
+        }
+        const response = blogService.create(blog)
         console.log("createBlog",response)
         response.then(result => {
-            console.log("RESULT",response)
+            console.log("RESULT",result)
             this.props.alterNotification("A new blog added")
         }).catch(error => {
             console.log("ERROR",error)
