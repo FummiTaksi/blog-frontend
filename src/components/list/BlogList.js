@@ -27,7 +27,11 @@ class BlogList extends React.Component {
     }
 
     makeListOfElements = () => {
-        return this.state.blogs.map((blog) => {
+       const copyList =  this.state.blogs.slice()
+       const sorted = copyList.sort((a,b) => {
+           return b.likes - a.likes
+       })
+        return sorted.map((blog) => {
             if (this.selectedIsNotSame(blog)) {
                 return (<p onClick = {() => this.setState({selected: blog})}
                         key = {blog.id}>{blog.title} {blog.author}</p>)
