@@ -1,11 +1,14 @@
 import React from 'react'
 import blogService from '../../services/blogService'
+import Blog from '../blog/Blog'
+
 class BlogList extends React.Component {
 
     constructor() {
         super()
         this.state = {
-            blogs: []
+            blogs: [],
+            selected: undefined
         }
     }
 
@@ -19,18 +22,28 @@ class BlogList extends React.Component {
         })
     }
 
+    selectedIsNotSame = (blog) => {
+        return !this.state.selected || this.state.selected.id !== blog.id
+    }
+
     makeListOfElements = () => {
         return this.state.blogs.map((blog) => {
-            return (<li key = {blog.id}>{blog.title} {blog.author}</li>)
+            if (this.selectedIsNotSame(blog)) {
+                return (<p onClick = {() => this.setState({selected: blog})}
+                        key = {blog.id}>{blog.title} {blog.author}</p>)
+            }
+            else {
+                return (<Blog onClick={() => this.setState({selected: undefined})}
+                             key = {blog.id} blog = {blog}/>)
+            }
+            
         }) 
     }
 
     render() {
         return (
             <div>
-                <ul>
                    {this.makeListOfElements()}
-                </ul>
             </div>
         )
     }

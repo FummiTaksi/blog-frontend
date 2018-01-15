@@ -5,6 +5,7 @@ import BlogList from './list/BlogList'
 import BlogForm from './blog/BlogForm'
 import Notification from './notification/Notification'
 import loginService from '../services/loginService'
+import Togglable from './togglable/Togglable';
 
 class BlogApp extends React.Component {
     
@@ -78,7 +79,9 @@ class BlogApp extends React.Component {
                     currentUser = {this.state.currentUser}
                     logOutFunction = {this.logOut}
                  />   
-                <BlogForm  alterNotification = {this.alterBlogNotification}/>
+                 <Togglable buttonLabel= "create new blog">
+                   <BlogForm  alterNotification = {this.alterBlogNotification}/>
+                 </Togglable>              
                 <BlogList />
             </div>
         )
