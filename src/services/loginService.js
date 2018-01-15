@@ -10,7 +10,6 @@ const setToken = (newToken) => {
 
   const setCurrentUser = (loggedInUser) => {
       currentUser = loggedInUser
-      console.log("setCurrentUser",currentUser)
   }
 
   const getCurrentUser = () => {
