@@ -13,7 +13,8 @@ class BlogApp extends React.Component {
         this.state = {
             user: "",
             currentUser: "",
-            signInMessage: ""
+            signInMessage: "",
+            blogCreationMessage: ""
         }
     }
 
@@ -23,7 +24,7 @@ class BlogApp extends React.Component {
             user: userInfo.token,
             currentUser: userInfo.name
         })
-        this.alterNotification("Welcome back!")
+        this.alterUserNotification("Welcome back!")
     }
     componentWillMount() {
   
@@ -50,8 +51,7 @@ class BlogApp extends React.Component {
           loginService.setToken("")
       }
 
-      alterNotification = (message) => {
-          console.log("alterNotification: ",message)
+      alterUserNotification = (message) => {
         this.setState({
           signInMessage: message
         })
@@ -60,15 +60,25 @@ class BlogApp extends React.Component {
         }, 5000)
       }
 
+      alterBlogNotification = (message) => {
+        this.setState({
+            blogCreationMessage: message
+          })
+          setTimeout(() => {
+            this.setState({blogCreationMessage: null})
+          }, 5000)
+      }
+
     viewForSignedInUser =  () => {
         return (
             <div>
                 <Notification message = {this.state.signInMessage}/>
+                <Notification message = {this.state.blogCreationMessage}/>
                 <SignedUserInfo 
                     currentUser = {this.state.currentUser}
                     logOutFunction = {this.logOut}
                  />   
-                <BlogForm />
+                <BlogForm  alterNotification = {this.alterBlogNotification}/>
                 <BlogList />
             </div>
         )
@@ -80,7 +90,7 @@ class BlogApp extends React.Component {
               <Notification message = {this.state.signInMessage} />
               <SignInForm
                 updateUser = {this.updateUser}
-                loginFail = {this.alterNotification}
+                loginFail = {this.alterUserNotification}
                /> 
             </div>
         )
