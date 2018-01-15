@@ -18,11 +18,13 @@ class Blog extends React.Component {
 
     deleteBlog = (e) => {
         e.preventDefault();
-        blogService.deleteBlog(this.props.blog).then(result => {
-            console.log("deleteBlog SUCCESS",result)
-        }).catch(error => {
-            console.log("deleteBlog ERROR",error)
-        })
+        if (window.confirm("haluatko varmasti poistaa blogin " + this.props.blog.title + " ?")) {
+            blogService.deleteBlog(this.props.blog).then(result => {
+                console.log("deleteBlog SUCCESS",result)
+            }).catch(error => {
+                console.log("deleteBlog ERROR",error)
+            })
+        }
         this.forceUpdate()
     }
 
