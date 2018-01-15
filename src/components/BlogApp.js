@@ -25,7 +25,6 @@ class BlogApp extends React.Component {
     componentWillMount() {
   
         const loggedUserJSON = window.localStorage.getItem('loggedUser')
-        console.log("KIRJAUTUNUT KÄYTTÄJÄ: ",loggedUserJSON)
         if (loggedUserJSON) {
           const user = JSON.parse(loggedUserJSON)
           this.setState({

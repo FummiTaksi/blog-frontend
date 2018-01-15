@@ -21,13 +21,7 @@ class BlogForm extends React.Component {
     }
 
     createBlog = () => {
-        console.log("creating blog",this.state)
-        const blog = {
-            title: this.state.title,
-            author: this.state.author,
-            url: this.state.url
-        }
-        const response = blogService.create(blog)
+        const response = blogService.create(this.state)
         response.then(result => {
             console.log("RESULT",result)
         }).catch(error => {
