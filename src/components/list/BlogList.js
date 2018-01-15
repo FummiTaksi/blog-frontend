@@ -26,8 +26,6 @@ class BlogList extends React.Component {
     }
 
     render() {
-        const blog = this.state.blogs[0]
-        console.log("BLOG",blog)
         return (
             <div>
                 <ul>

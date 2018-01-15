@@ -1,7 +1,6 @@
 import React from 'react'
 import SignInForm from './signin/SignInForm'
 import BlogList from './list/BlogList'
-import blogService from '../services/blogService'
 
 class BlogApp extends React.Component {
     
@@ -9,29 +8,33 @@ class BlogApp extends React.Component {
         super()
         this.state = {
             blog: false,
-            user: ""
+            user: "",
+            currentUser: ""
         }
     }
 
-    setToken = (newToken) => {
-        console.log("SETTING TOKEN AS",newToken)
+    updateUser = (userInfo) => {
         this.setState({
-            user: newToken
+            user: userInfo.token,
+            currentUser: userInfo.currentUser
         })
     }
-
+ 
     blogList =  () => {
         return (
-            <BlogList />
+            <div>
+                <h3>You are logged in as {this.state.currentUser}</h3>
+                <BlogList />
+            </div>
         )
     }
     
     render() {
-        
+
         return (
             <div>
                 {this.state.user.length > 0 && this.blogList()}
-                {this.state.user.length === 0 && <SignInForm setToken = {this.setToken} />}
+                {this.state.user.length === 0 && <SignInForm updateUser = {this.updateUser} />}
             </div>
 
         )

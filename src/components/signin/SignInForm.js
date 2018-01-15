@@ -17,13 +17,16 @@ class SignInForm extends React.Component {
         })
     }
 
-    setTokenAndResetFields = (token) => {
+    setTokenAndResetFields = (data) => {
+        const userInfo = {
+            token: data.token,
+            currentUser: data.name
+        }
         this.setState({
             username: "",
             password: ""
         })
-        console.log("TOKEN",token)
-        this.props.setToken(token)
+        this.props.updateUser(userInfo)
     }
 
     logIn = async (e) => {
@@ -34,7 +37,7 @@ class SignInForm extends React.Component {
             }
         const response = await loginService.login(credentials)
         if (response.data) {
-            this.setTokenAndResetFields(response.data.token)
+            this.setTokenAndResetFields(response.data)
         }
     }
 
