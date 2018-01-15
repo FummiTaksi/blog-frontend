@@ -2,6 +2,7 @@ import React from 'react'
 import SignInForm from './signin/SignInForm'
 import SignedUserInfo from './signin/SignedUserInfo'
 import BlogList from './list/BlogList'
+import BlogForm from './blog/BlogForm'
 import loginService from '../services/loginService'
 
 class BlogApp extends React.Component {
@@ -54,6 +55,7 @@ class BlogApp extends React.Component {
                     currentUser = {this.state.currentUser}
                     logOutFunction = {this.logOut}
                  />   
+                <BlogForm />
                 <BlogList />
             </div>
         )

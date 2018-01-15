@@ -1,5 +1,6 @@
 import React from 'react'
 import loginService from '../../services/loginService'
+import Input from '../input/Input'
 
 class SignInForm extends React.Component {
 
@@ -49,23 +50,22 @@ class SignInForm extends React.Component {
         <div>
             <h2>Welcome to blog-app!</h2>
             <form onSubmit={this.logIn}>
-                Username:
-                <input 
+                <Input
+                    text = "Username:" 
                     name = "username"
                     value = {this.state.username}
                     onChange = {this.handleFormChange}
                  />  
-                 <br></br>
-                Password:
-                <input 
+                <Input 
+                    text = "Password:"
                     name = "password"
                     value = {this.state.password}
                     onChange = {this.handleFormChange}
                  />   
-                 <br></br>
                  <button type="submit">Log in </button>
             </form>          
-        </div>)
+        </div>
+        )
     }
 }
 

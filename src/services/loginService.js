@@ -7,6 +7,9 @@ const setToken = (newToken) => {
     token = `bearer ${newToken}`
   }
 
+  const getToken = () => {
+      return token
+  }
 
 const login = async (credentials) => {
     try {
@@ -18,4 +21,4 @@ const login = async (credentials) => {
    
 }
 
-export default {login, setToken}
+export default {login, setToken, getToken}
