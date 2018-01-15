@@ -1,6 +1,12 @@
 import axios from 'axios'
 const baseUrl = "http://localhost:3001/api/login"
 
+let token = null
+
+const setToken = (newToken) => {
+    token = `bearer ${newToken}`
+  }
+
 
 const login = async (credentials) => {
     try {
@@ -12,4 +18,4 @@ const login = async (credentials) => {
    
 }
 
-export default {login}
+export default {login, setToken}
