@@ -43,6 +43,9 @@ class SignInForm extends React.Component {
         if (response.data) {
             this.setTokenAndResetFields(response.data)
         }
+        else {
+            this.props.loginFail("Wrong username or password")
+        }
     }
 
     render() {

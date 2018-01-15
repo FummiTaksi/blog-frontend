@@ -3,6 +3,7 @@ import SignInForm from './signin/SignInForm'
 import SignedUserInfo from './signin/SignedUserInfo'
 import BlogList from './list/BlogList'
 import BlogForm from './blog/BlogForm'
+import Notification from './notification/Notification'
 import loginService from '../services/loginService'
 
 class BlogApp extends React.Component {
@@ -11,7 +12,8 @@ class BlogApp extends React.Component {
         super()
         this.state = {
             user: "",
-            currentUser: ""
+            currentUser: "",
+            signInMessage: ""
         }
     }
 
@@ -21,6 +23,7 @@ class BlogApp extends React.Component {
             user: userInfo.token,
             currentUser: userInfo.name
         })
+        this.alterNotification("Welcome back!")
     }
     componentWillMount() {
   
@@ -46,10 +49,21 @@ class BlogApp extends React.Component {
           window.localStorage.removeItem("loggedUser")
           loginService.setToken("")
       }
- 
+
+      alterNotification = (message) => {
+          console.log("alterNotification: ",message)
+        this.setState({
+          signInMessage: message
+        })
+        setTimeout(() => {
+          this.setState({signInMessage: null})
+        }, 5000)
+      }
+
     viewForSignedInUser =  () => {
         return (
             <div>
+                <Notification message = {this.state.signInMessage}/>
                 <SignedUserInfo 
                     currentUser = {this.state.currentUser}
                     logOutFunction = {this.logOut}
@@ -59,13 +73,25 @@ class BlogApp extends React.Component {
             </div>
         )
     }
+
+    viewForNotSignedInUser = () => {
+        return (
+            <div>
+              <Notification message = {this.state.signInMessage} />
+              <SignInForm
+                updateUser = {this.updateUser}
+                loginFail = {this.alterNotification}
+               /> 
+            </div>
+        )
+    }
     
     render() {
 
         return (
             <div>
                 {this.state.user.length > 0 && this.viewForSignedInUser()}
-                {this.state.user.length === 0 && <SignInForm updateUser = {this.updateUser} />}
+                {this.state.user.length === 0 && this.viewForNotSignedInUser()}
             </div>
 
         )
