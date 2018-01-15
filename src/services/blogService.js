@@ -7,7 +7,6 @@ const getAll = () => {
 }
 
 const create =  (blog) => {
-    console.log("CREATE")
     const token  = loginService.getToken()
     const config = {
         headers: { 'Authorization': token }
