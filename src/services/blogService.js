@@ -15,4 +15,9 @@ const create =  (blog) => {
 
 }
 
-export default {getAll, create}
+const update = (blog) => {
+    const url = baseUrl + "/" + blog.id
+    return axios.put(url, blog)
+}
+
+export default {getAll, create,update}
