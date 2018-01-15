@@ -1,5 +1,6 @@
 import React from 'react'
 import blogService from '../../services/blogService'
+import loginService from '../../services/loginService';
 
 class Blog extends React.Component {
 
@@ -15,8 +16,34 @@ class Blog extends React.Component {
         this.forceUpdate()
     }
 
+    deleteBlog = (e) => {
+        e.preventDefault();
+        blogService.deleteBlog(this.props.blog).then(result => {
+            console.log("deleteBlog SUCCESS",result)
+        }).catch(error => {
+            console.log("deleteBlog ERROR",error)
+        })
+        this.forceUpdate()
+    }
+
+    isDeleteAllowed = () => {
+        const currentUser = loginService.getCurrentUser()
+        const blogsUser = this.props.blog.user
+        return !blogsUser || currentUser.username === blogsUser.username
+    }
+
+    renderButton = () => {
+        if (this.isDeleteAllowed()) {
+            return (
+                <button onClick = {this.deleteBlog}>delete</button>   
+            )
+        }
+        else {
+            return (<p>LOL</p>)
+        }
+    }
+
     render() {
-        console.log("this.props.blog",this.props.blog)
         const blog = this.props.blog
         const user = blog.user ? blog.user.name : "No user!"
         return (
@@ -27,7 +54,8 @@ class Blog extends React.Component {
                     {blog.likes} likes 
                     <button onClick = {this.submitLike}>like</button>
                 </div>
-                <p>added by {user}</p>        
+                <p>added by {user}</p>
+                    {this.renderButton()}
             </div>
         )
     }

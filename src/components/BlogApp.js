@@ -25,6 +25,7 @@ class BlogApp extends React.Component {
             user: userInfo.token,
             currentUser: userInfo.name
         })
+        loginService.setCurrentUser(userInfo)
         this.alterUserNotification("Welcome back!")
     }
     componentWillMount() {
@@ -37,6 +38,7 @@ class BlogApp extends React.Component {
               currentUser: user.name
             })
           loginService.setToken(user.token)
+          loginService.setCurrentUser(user)
         }
         else {
             this.logOut()
@@ -50,6 +52,7 @@ class BlogApp extends React.Component {
           })
           window.localStorage.removeItem("loggedUser")
           loginService.setToken("")
+          loginService.setCurrentUser(undefined)
       }
 
       alterUserNotification = (message) => {

@@ -2,9 +2,19 @@ import axios from 'axios'
 const baseUrl = "http://localhost:3001/api/login"
 
 let token = null
+let currentUser = undefined
 
 const setToken = (newToken) => {
     token = `bearer ${newToken}`
+  }
+
+  const setCurrentUser = (loggedInUser) => {
+      currentUser = loggedInUser
+      console.log("setCurrentUser",currentUser)
+  }
+
+  const getCurrentUser = () => {
+      return currentUser
   }
 
   const getToken = () => {
@@ -21,4 +31,4 @@ const login = async (credentials) => {
    
 }
 
-export default {login, setToken, getToken}
+export default {login, setToken, getToken, setCurrentUser, getCurrentUser}

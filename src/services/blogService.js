@@ -6,6 +6,10 @@ const getAll = () => {
     return axios.get(baseUrl)
 }
 
+const getUrlOfBlog = (blog) => {
+    return baseUrl + "/" + blog.id
+}
+
 const create =  (blog) => {
     const token  = loginService.getToken()
     const config = {
@@ -20,4 +24,13 @@ const update = (blog) => {
     return axios.put(url, blog)
 }
 
-export default {getAll, create,update}
+const deleteBlog = (blog) => {
+    const token  = loginService.getToken()
+    const config = {
+        headers: { 'Authorization': token }
+      }
+    return axios.delete(getUrlOfBlog(blog), config)
+
+}
+
+export default {getAll, create, update, deleteBlog}
