@@ -8,34 +8,34 @@ class BlogApp extends React.Component {
     constructor() {
         super()
         this.state = {
+            blog: false,
             user: ""
         }
     }
 
-    getAllBlogs = async() => {
-        const blogs = await blogService.getAllBlogs()
-        return blogs;
-    }
-
     setToken = (newToken) => {
-        console.log("SETTOKEN")
+        console.log("SETTING TOKEN AS",newToken)
         this.setState({
             user: newToken
         })
     }
 
-    tokenIsDefined = () => {
-        return this.state.user > 0
+    blogList =  () => {
+        return (
+            <BlogList />
+        )
     }
+    
     render() {
-        if (this.tokenIsDefined()) {
-            return (
-                <BlogList blogs = {this.getAllBlogs()}/>
-            )
-        }
-        else {
-            return <SignInForm setToken = {this.setToken} />
-        }
+        
+        return (
+            <div>
+                {this.state.user.length > 0 && this.blogList()}
+                {this.state.user.length === 0 && <SignInForm setToken = {this.setToken} />}
+            </div>
+
+        )
+        
     }
 }
 

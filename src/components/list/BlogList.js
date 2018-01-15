@@ -1,20 +1,37 @@
 import React from 'react'
-
+import blogService from '../../services/blogService'
 class BlogList extends React.Component {
 
+    constructor() {
+        super()
+        this.state = {
+            blogs: []
+        }
+    }
 
-
-    makeListOfElements = () => {
-        this.props.blogs.map((blog) => {
-            return (<li key = {blog.id}>{blog.title} {blog.author}</li>)
+    componentWillMount() {
+        blogService.getAll().then(response => {
+            this.setState({
+                blogs: response.data
+            })
+        }).catch(error => {
+            console.log(error)
         })
     }
 
+    makeListOfElements = () => {
+        return this.state.blogs.map((blog) => {
+            return (<li key = {blog.id}>{blog.title} {blog.author}</li>)
+        }) 
+    }
+
     render() {
+        const blog = this.state.blogs[0]
+        console.log("BLOG",blog)
         return (
             <div>
                 <ul>
-                    {this.makeListOfElements()}
+                   {this.makeListOfElements()}
                 </ul>
             </div>
         )

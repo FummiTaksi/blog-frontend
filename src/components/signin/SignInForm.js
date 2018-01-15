@@ -22,6 +22,7 @@ class SignInForm extends React.Component {
             username: "",
             password: ""
         })
+        console.log("TOKEN",token)
         this.props.setToken(token)
     }
 
