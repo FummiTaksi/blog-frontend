@@ -20,7 +20,7 @@ class SignInForm extends React.Component {
     setTokenAndResetFields = (data) => {
         const userInfo = {
             token: data.token,
-            currentUser: data.name,
+            name: data.name,
             username: this.state.username,
             password: this.state.password
         }

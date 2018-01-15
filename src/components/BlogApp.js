@@ -1,5 +1,6 @@
 import React from 'react'
 import SignInForm from './signin/SignInForm'
+import SignedUserInfo from './signin/SignedUserInfo'
 import BlogList from './list/BlogList'
 import loginService from '../services/loginService'
 
@@ -17,7 +18,7 @@ class BlogApp extends React.Component {
         window.localStorage.setItem('loggedUser', JSON.stringify(userInfo))
         this.setState({
             user: userInfo.token,
-            currentUser: userInfo.currentUser
+            currentUser: userInfo.name
         })
     }
     componentWillMount() {
@@ -28,7 +29,7 @@ class BlogApp extends React.Component {
           const user = JSON.parse(loggedUserJSON)
           this.setState({
               user: user.token,
-              currentUser: user.currentUser
+              currentUser: user.name
             })
           loginService.setToken(user.token)
         }
@@ -46,11 +47,13 @@ class BlogApp extends React.Component {
           loginService.setToken("")
       }
  
-    blogList =  () => {
+    viewForSignedInUser =  () => {
         return (
             <div>
-                <h3>You are logged in as {this.state.currentUser}</h3>
-                <button onClick = {this.logOut}>logout</button>
+                <SignedUserInfo 
+                    currentUser = {this.state.currentUser}
+                    logOutFunction = {this.logOut}
+                 />   
                 <BlogList />
             </div>
         )
@@ -60,7 +63,7 @@ class BlogApp extends React.Component {
 
         return (
             <div>
-                {this.state.user.length > 0 && this.blogList()}
+                {this.state.user.length > 0 && this.viewForSignedInUser()}
                 {this.state.user.length === 0 && <SignInForm updateUser = {this.updateUser} />}
             </div>
 
