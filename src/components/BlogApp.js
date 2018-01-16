@@ -31,9 +31,7 @@ class BlogApp extends React.Component {
     componentWillMount() {
         const loggedUserJSON = window.localStorage.getItem('loggedUser')
         if (loggedUserJSON) {
-          console.log("JSON",loggedUserJSON)
           const user = JSON.parse(loggedUserJSON)
-          console.log("USER",user)
           this.setState({
               user: user.token,
               currentUser: user.name
@@ -42,7 +40,6 @@ class BlogApp extends React.Component {
           loginService.setCurrentUser(user)
         }
         else {
-            console.log("EI OLLUT MÄÄRITELTY")
             this.logOut()
         }
       }
