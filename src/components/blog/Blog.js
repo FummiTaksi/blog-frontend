@@ -59,7 +59,7 @@ class Blog extends React.Component {
     returnBigMode = (blog, user) => {
         return (
             <div key= {blog.id} >
-                <b onClick = {() => this.toggleSmallMode()}>{blog.title} {blog.author}</b>   
+                <b className = "bold" onClick = {() => this.toggleSmallMode()}>{blog.title} {blog.author}</b>   
                 <a href = {blog.url}>{blog.url}</a>
                 <div>
                     {blog.likes} likes 
@@ -73,7 +73,7 @@ class Blog extends React.Component {
 
     returnSmallMode = (blog) => {
         return (
-            <p onClick = {() => this.toggleSmallMode()} key = {blog.id}>{blog.title} {blog.author}</p>
+            <p className = "clickable" onClick = {() => this.toggleSmallMode()} key = {blog.id}>{blog.title} {blog.author}</p>
         )
     }
 
