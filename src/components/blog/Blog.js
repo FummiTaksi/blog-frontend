@@ -4,6 +4,13 @@ import loginService from '../../services/loginService';
 
 class Blog extends React.Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            smallMode: true
+        }
+    }
+
 
     submitLike = (e) => {
         e.preventDefault()
@@ -40,17 +47,19 @@ class Blog extends React.Component {
                 <button onClick = {this.deleteBlog}>delete</button>   
             )
         }
-        else {
-            return (<p>LOL</p>)
-        }
     }
 
-    render() {
-        const blog = this.props.blog
-        const user = blog.user ? blog.user.name : "No user!"
+    toggleSmallMode = () => {
+        this.setState({
+            smallMode : !this.state.smallMode
+        })
+        this.forceUpdate()
+    }
+
+    returnBigMode = (blog, user) => {
         return (
             <div key= {blog.id} >
-                <b onClick = {this.props.onClick}>{blog.title} {blog.author}</b>   
+                <b onClick = {() => this.toggleSmallMode()}>{blog.title} {blog.author}</b>   
                 <a href = {blog.url}>{blog.url}</a>
                 <div>
                     {blog.likes} likes 
@@ -60,6 +69,25 @@ class Blog extends React.Component {
                     {this.renderButton()}
             </div>
         )
+    }
+
+    returnSmallMode = (blog) => {
+        return (
+            <p onClick = {() => this.toggleSmallMode()} key = {blog.id}>{blog.title} {blog.author}</p>
+        )
+    }
+
+    render() {
+        const blog = this.props.blog
+        const user = blog.user ? blog.user.name : "No user!"
+        const smallMode = this.state.smallMode
+        return (
+            <div>
+              {this.state.smallMode && this.returnSmallMode(blog)}
+              {!this.state.smallMode && this.returnBigMode(blog,user)}
+            </div>
+        )
+
     }
 }
 export default Blog

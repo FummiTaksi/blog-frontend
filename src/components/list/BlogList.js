@@ -7,8 +7,7 @@ class BlogList extends React.Component {
     constructor() {
         super()
         this.state = {
-            blogs: [],
-            selected: undefined
+            blogs: []
         }
     }
 
@@ -22,9 +21,6 @@ class BlogList extends React.Component {
         })
     }
 
-    selectedIsNotSame = (blog) => {
-        return !this.state.selected || this.state.selected.id !== blog.id
-    }
 
     makeListOfElements = () => {
        const copyList =  this.state.blogs.slice()
@@ -32,15 +28,7 @@ class BlogList extends React.Component {
            return b.likes - a.likes
        })
         return sorted.map((blog) => {
-            if (this.selectedIsNotSame(blog)) {
-                return (<p onClick = {() => this.setState({selected: blog})}
-                        key = {blog.id}>{blog.title} {blog.author}</p>)
-            }
-            else {
-                return (<Blog onClick={() => this.setState({selected: undefined})}
-                             key = {blog.id} blog = {blog}/>)
-            }
-            
+            return <Blog key = {blog.id} blog = {blog} />
         }) 
     }
 
