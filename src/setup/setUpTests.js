@@ -3,14 +3,16 @@ import Adapter from 'enzyme-adapter-react-16'
 
 configure({ adapter: new Adapter() })
 
-let savedItems = {}
+let savedItems = []
 
 const localStorageMock = {
     setItem: (key, item) => {
-      savedItem[key] = item
+      savedItems[key] = item
     },
-    getItem: (key) => savedItems[key],
-    clear: jest.fn(),
+    getItem: (key) => {
+      return savedItems[key]
+    } ,
+    clear:() =>  {jest.fn()},
 
     removeItem: (key) => {
         savedItems[key] = undefined
