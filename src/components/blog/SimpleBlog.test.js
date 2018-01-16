@@ -15,7 +15,8 @@ describe.only('<SimpleBlog />', () => {
         likes: 5
       }
     let klik = () => {console.log("KLIK!")}
-    let simpleBlog = <SimpleBlog blog={blog} onClick = {klik} />
+    let mockHandler = jest.fn()
+    let simpleBlog = <SimpleBlog blog={blog} onClick = {mockHandler} />
 
 
 
@@ -35,6 +36,14 @@ describe.only('<SimpleBlog />', () => {
     const blogComponent = shallow(simpleBlog)
     const contentDiv = blogComponent.find('.likes')
     expect(contentDiv.text()).toContain(blog.likes)
+  })
+
+  it('when button is clicked twice, eventhandler is called twice', () => {
+    const blogComponent = shallow(simpleBlog)
+    const button = blogComponent.find('button')
+    button.simulate('click')
+    button.simulate('click')
+    expect(mockHandler.mock.calls.length).toBe(2)
   })
 
 })
