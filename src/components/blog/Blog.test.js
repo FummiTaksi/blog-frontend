@@ -16,6 +16,13 @@ describe('<Blog />', () => {
       }
     let blog = <Blog blog = {blogObject} />
 
+
+    it('has info about title and author', () => {
+        const blogComponent = shallow(blog)
+        const text = blogComponent.text()
+        expect(text).toContain(blogObject.title)
+        expect(text).toContain(blogObject.author)
+    })
     it('when clicked, big mode is toggled', () => {
         const blogComponent = shallow(blog)
         const p = blogComponent.find('.clickable')
