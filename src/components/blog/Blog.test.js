@@ -3,10 +3,6 @@ import { shallow, configure } from 'enzyme'
 import Blog from './Blog'
 import setUpTests from '../../setup/setUpTests'
 
-import Adapter from 'enzyme-adapter-react-16'
-
-configure({ adapter: new Adapter() })
-
 describe('<Blog />', () => {
 
     let blogObject = {

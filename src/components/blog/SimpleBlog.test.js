@@ -3,10 +3,6 @@ import { shallow, configure } from 'enzyme'
 import SimpleBlog from './SimpleBlog'
 import setUpTests from '../../setup/setUpTests'
 
-import Adapter from 'enzyme-adapter-react-16'
-
-configure({ adapter: new Adapter() })
-
 describe.only('<SimpleBlog />', () => {
 
     let blog = {

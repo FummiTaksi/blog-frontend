@@ -92,7 +92,7 @@ class BlogApp extends React.Component {
 
     viewForNotSignedInUser = () => {
         return (
-            <div>
+            <div className = "notSignedIn">
               <Notification message = {this.state.signInMessage} />
               <SignInForm
                 updateUser = {this.updateUser}
@@ -105,7 +105,7 @@ class BlogApp extends React.Component {
     render() {
 
         return (
-            <div>
+            <div className = "blogApp">
                 {this.state.user.length > 0 && this.viewForSignedInUser()}
                 {this.state.user.length === 0 && this.viewForNotSignedInUser()}
             </div>
