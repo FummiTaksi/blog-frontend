@@ -7,20 +7,21 @@ import Adapter from 'enzyme-adapter-react-16'
 
 configure({ adapter: new Adapter() })
 
-describe.only('<Note />', () => {
+describe.only('<SimpleBlog />', () => {
+
+    let blog = {
+        title: "Arto and Peter Go Modular",
+        author: "Valmet",
+        likes: 5
+      }
+    let klik = () => {console.log("KLIK!")}
+    let simpleBlog = <SimpleBlog blog={blog} onClick = {klik} />
+
+
 
   it('renders title', () => {
-    const blog = {
-      title: "Arto and Peter Go Modular",
-      author: "Valmet",
-      likes: 5
-    }
-    const klik = () => {console.log("KLIK!")}
-    
-
-    const noteComponent = shallow(<SimpleBlog blog={blog} onClick = {klik}/>)
+    const noteComponent = shallow(simpleBlog)
     const contentDiv = noteComponent.find('.info')
-
     expect(contentDiv.text()).toContain(blog.title)
   })
 
