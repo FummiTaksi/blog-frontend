@@ -20,9 +20,21 @@ describe.only('<SimpleBlog />', () => {
 
 
   it('renders title', () => {
-    const noteComponent = shallow(simpleBlog)
-    const contentDiv = noteComponent.find('.info')
+    const blogComponent = shallow(simpleBlog)
+    const contentDiv = blogComponent.find('.info')
     expect(contentDiv.text()).toContain(blog.title)
+  })
+
+  it('renders author', () => {
+    const blogComponent = shallow(simpleBlog)
+    const contentDiv = blogComponent.find('.info')
+    expect(contentDiv.text()).toContain(blog.author)
+  })
+
+  it('renders likes', () => {
+    const blogComponent = shallow(simpleBlog)
+    const contentDiv = blogComponent.find('.likes')
+    expect(contentDiv.text()).toContain(blog.likes)
   })
 
 })
