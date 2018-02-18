@@ -28,6 +28,7 @@ class BlogList extends React.Component {
            return b.likes - a.likes
        })
         return sorted.map((blog) => {
+            console.log("BLOG",blog)
             return <Blog key = {blog.id} blog = {blog} />
         }) 
     }
