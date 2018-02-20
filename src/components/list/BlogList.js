@@ -21,12 +21,17 @@ class BlogList extends React.Component {
         })
     }
 
-    componentWillMount() {
+    componentWillReceiveProps() {
       this.updateBlogList()
     }
 
-    componentDidUpdate() {
+    /*componentWillUpdate() {
+     console.log("PÄIVITYN!")
       this.updateBlogList()
+    }*/
+
+    componentWillMount() {
+        this.updateBlogList()
     }
 
 

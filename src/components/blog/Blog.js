@@ -54,7 +54,6 @@ class Blog extends React.Component {
         this.setState({
             smallMode : !this.state.smallMode
         })
-        this.forceUpdate()
     }
 
     returnBigMode = (blog, user) => {
