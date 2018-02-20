@@ -4,14 +4,14 @@ import Blog from '../blog/Blog'
 
 class BlogList extends React.Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             blogs: []
         }
     }
 
-    componentWillMount() {
+    updateBlogList() {
         blogService.getAll().then(response => {
             this.setState({
                 blogs: response.data
@@ -21,6 +21,14 @@ class BlogList extends React.Component {
         })
     }
 
+    componentWillMount() {
+      this.updateBlogList()
+    }
+
+    componentDidUpdate() {
+      this.updateBlogList()
+    }
+
 
     makeListOfElements = () => {
        const copyList =  this.state.blogs.slice()
@@ -28,8 +36,7 @@ class BlogList extends React.Component {
            return b.likes - a.likes
        })
         return sorted.map((blog) => {
-            console.log("BLOG",blog)
-            return <Blog key = {blog.id} blog = {blog} />
+            return <Blog key = {blog.id} blog = {blog} alterNotification = {this.props.alterNotification} />
         }) 
     }
 

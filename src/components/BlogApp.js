@@ -9,13 +9,12 @@ import Togglable from './togglable/Togglable';
 
 class BlogApp extends React.Component {
     
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             user: "",
             currentUser: "",
-            signInMessage: "",
-            blogCreationMessage: ""
+            notification: ""
         }
     }
 
@@ -26,7 +25,7 @@ class BlogApp extends React.Component {
             currentUser: userInfo.name
         })
         loginService.setCurrentUser(userInfo)
-        this.alterUserNotification("Welcome back!")
+        this.alterNotification("Welcome back!")
     }
     componentWillMount() {
         const loggedUserJSON = window.localStorage.getItem('loggedUser')
@@ -54,37 +53,28 @@ class BlogApp extends React.Component {
           loginService.setCurrentUser(undefined)
       }
 
-      alterUserNotification = (message) => {
+      alterNotification = (message) => {
+        this.props.store.dispatch({type: 'CHANGE_NOTIFICATION', message})
         this.setState({
-          signInMessage: message
-        })
-        setTimeout(() => {
-          this.setState({signInMessage: null})
-        }, 5000)
-      }
-
-      alterBlogNotification = (message) => {
-        this.setState({
-            blogCreationMessage: message
+            notification: this.props.store.getState()
           })
           setTimeout(() => {
-            this.setState({blogCreationMessage: null})
+            this.setState({notification: null})
           }, 5000)
       }
 
     viewForSignedInUser =  () => {
         return (
             <div>
-                <Notification message = {this.state.signInMessage}/>
-                <Notification message = {this.state.blogCreationMessage}/>
+                <Notification message = {this.state.notification}/>
                 <SignedUserInfo 
                     currentUser = {this.state.currentUser}
                     logOutFunction = {this.logOut}
                  />   
                  <Togglable buttonLabel= "create new blog">
-                   <BlogForm  alterNotification = {this.alterBlogNotification}/>
+                   <BlogForm  alterNotification = {this.alterNotification}/>
                  </Togglable>              
-                <BlogList />
+                <BlogList alterNotification = {this.alterNotification} />
             </div>
         )
     }
@@ -92,10 +82,10 @@ class BlogApp extends React.Component {
     viewForNotSignedInUser = () => {
         return (
             <div className = "notSignedIn">
-              <Notification message = {this.state.signInMessage} />
+              <Notification message = {this.state.notification} />
               <SignInForm
                 updateUser = {this.updateUser}
-                loginFail = {this.alterUserNotification}
+                loginFail = {this.alterNotification}
                /> 
             </div>
         )
@@ -108,7 +98,6 @@ class BlogApp extends React.Component {
                 {this.state.user.length > 0 && this.viewForSignedInUser()}
                 {this.state.user.length === 0 && this.viewForNotSignedInUser()}
             </div>
-
         )
         
     }

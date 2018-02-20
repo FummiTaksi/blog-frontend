@@ -17,22 +17,23 @@ class Blog extends React.Component {
         this.props.blog.likes += 1
         blogService.update(this.props.blog).then(result => {
             console.log("submitLike SUCCESS",result)
+            this.props.alterNotification("You liked " + this.props.blog.title)
         }).catch(error => {
             console.log("submitLike ERROR",error)
         })
-        this.forceUpdate()
     }
 
     deleteBlog = (e) => {
         e.preventDefault();
-        if (window.confirm("haluatko varmasti poistaa blogin " + this.props.blog.title + " ?")) {
+        const title = this.props.blog.title
+        if (window.confirm("haluatko varmasti poistaa blogin " + title + " ?")) {
             blogService.deleteBlog(this.props.blog).then(result => {
                 console.log("deleteBlog SUCCESS",result)
+                this.props.alterNotification("Blog " + title + " deleted successfully!")
             }).catch(error => {
                 console.log("deleteBlog ERROR",error)
             })
         }
-        this.forceUpdate()
     }
 
     isDeleteAllowed = () => {
