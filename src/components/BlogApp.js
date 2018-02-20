@@ -5,7 +5,10 @@ import BlogList from './list/BlogList'
 import BlogForm from './blog/BlogForm'
 import Notification from './notification/Notification'
 import loginService from '../services/loginService'
-import Togglable from './togglable/Togglable';
+import Togglable from './togglable/Togglable'
+
+import { connect } from 'react-redux'
+import { notificationChange } from '../reducers/notificationReducer'
 
 class BlogApp extends React.Component {
     
@@ -53,14 +56,12 @@ class BlogApp extends React.Component {
           loginService.setCurrentUser(undefined)
       }
 
-      alterNotification = (message) => {
-        this.props.store.dispatch({type: 'CHANGE_NOTIFICATION', message})
-        this.setState({
-            notification: this.props.store.getState()
-          })
-          setTimeout(() => {
-            this.setState({notification: null})
-          }, 5000)
+      alterNotification = async (message) => {
+        console.log("ALTER NOTIFICATION")
+        this.props.notificationChange(message)
+        setTimeout(() => {
+          this.props.notificationChange("")
+        },5000)
       }
 
     viewForSignedInUser =  () => {
@@ -103,4 +104,12 @@ class BlogApp extends React.Component {
     }
 }
 
-export default BlogApp
+const mapDispatchToProps = {
+    notificationChange
+}
+
+const ConnectedBlogApp = connect(
+    null,
+    mapDispatchToProps
+  )(BlogApp)
+export default ConnectedBlogApp

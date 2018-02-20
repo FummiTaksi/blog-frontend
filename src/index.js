@@ -2,8 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import BlogApp from './components/BlogApp'
 import notificationReducer from './reducers/notificationReducer'
-import { createStore } from 'redux'
+import { createStore, combineReducers} from 'redux'
+import { Provider } from 'react-redux'
 
-const store = createStore(notificationReducer)
+const reducer = combineReducers({
+    notification: notificationReducer
+  })
 
-ReactDOM.render(<BlogApp store = {store}/>, document.getElementById('root'));
+const store = createStore(reducer)
+
+ReactDOM.render(
+  <Provider store={store}>
+    <BlogApp/>
+  </Provider>, 
+document.getElementById('root')
+);

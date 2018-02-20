@@ -7,4 +7,11 @@ const reducer = (store = initialState, action) => {
     return store
 }
 
+export const notificationChange = (message) => {
+    return {
+        type: 'CHANGE_NOTIFICATION',
+        message
+      }
+}
+
 export default reducer
