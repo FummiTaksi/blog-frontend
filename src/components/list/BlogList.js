@@ -25,11 +25,6 @@ class BlogList extends React.Component {
       this.updateBlogList()
     }
 
-    /*componentWillUpdate() {
-     console.log("PÄIVITYN!")
-      this.updateBlogList()
-    }*/
-
     componentWillMount() {
         this.updateBlogList()
     }
