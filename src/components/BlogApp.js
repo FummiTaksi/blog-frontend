@@ -75,7 +75,7 @@ class BlogApp extends React.Component {
                  <Togglable buttonLabel= "create new blog">
                    <BlogForm/>
                  </Togglable>              
-                <BlogList alterNotification = {this.alterNotification} />
+                <BlogList/>
             </div>
         )
     }
