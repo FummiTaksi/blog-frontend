@@ -51,7 +51,7 @@ export const blogLike = (blog) => {
       const response = await blogService.update({ ...blog, likes: blog.likes + 1})
       dispatch({
         type: 'LIKE',
-        id: response._id
+        id: response.id
       })
     }
   }
