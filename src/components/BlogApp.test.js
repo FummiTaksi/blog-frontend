@@ -8,17 +8,27 @@ import blogService from '../services/blogService'
 import setUpTests from '../setup/setUpTests'
 import Blog from './blog/Blog'
 
+import notificationReducer from '../reducers/notificationReducer'
+import { createStore, combineReducers} from 'redux'
+import { Provider } from 'react-redux'
+
 describe('<BlogApp />', () => {
     let app
+
+    let reducer = combineReducers({
+      notification: notificationReducer
+    })
+  
+  let store = createStore(reducer)
   
     describe('when user is not logged', () => {
 
       beforeEach(() => {
-        app = mount(<BlogApp />)
+        app = mount(<Provider store={store}><BlogApp/></Provider> )
       })
   
       it('only login form is rendered', () => {
-        const blogApp = mount(<BlogApp />)
+        const blogApp = mount(<Provider store={store}><BlogApp/></Provider>)
         const form = blogApp.find(SignInForm)
         const blogs = blogApp.find(Blog)
         expect(form.length).toBe(1)
@@ -35,7 +45,7 @@ describe('<BlogApp />', () => {
           token : "sjasfjaslf"
         }
         localStorage.setItem('loggedUser',JSON.stringify(user))
-        app = mount(<BlogApp/>)
+        app = mount(<Provider store={store}><BlogApp/></Provider>)
       })
 
       it('shows bloglist', () => {
