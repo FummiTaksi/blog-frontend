@@ -1,16 +1,28 @@
 import React from 'react'
-import { shallow, configure } from 'enzyme'
+import { shallow, configure, mount } from 'enzyme'
 import Blog from './Blog'
 import setUpTests from '../../setup/setUpTests'
 
+import notificationReducer from '../../reducers/notificationReducer'
+import { createStore, combineReducers} from 'redux'
+import { Provider } from 'react-redux'
+
 describe('<Blog />', () => {
+
+
+    let reducer = combineReducers({
+        notification: notificationReducer
+      })
+    
+    let store = createStore(reducer)
 
     let blogObject = {
         title: "Arto and Peter Go Modular",
         author: "Valmet",
         likes: 5
       }
-    let blog = <Blog blog = {blogObject} />
+
+    let blog = <Blog store = {store} blog = {blogObject}/> 
 
 
     it('has info about title and author', () => {
