@@ -64,7 +64,6 @@ export const blogLike = (blog) => {
 export const blogDeletion = (blog) => {
   return async (dispatch) => {
     const response = await blogService.deleteBlog(blog)
-    console.log("RESPONSE",response)
     dispatch({
       type: 'DELETE',
       id: response.id
