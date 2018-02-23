@@ -20,9 +20,10 @@ const create =  async(blog) => {
     return response.data
 }
 
-const update = (blog) => {
+const update = async(blog) => {
     const url = baseUrl + "/" + blog.id
-    return axios.put(url, blog)
+    const response = await axios.put(url, blog)
+    return response.data
 }
 
 const deleteBlog = (blog) => {

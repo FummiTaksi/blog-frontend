@@ -3,6 +3,7 @@ import blogService from '../../services/blogService'
 import loginService from '../../services/loginService'
 import { connect } from 'react-redux'
 import { notificationChange } from '../../reducers/notificationReducer'
+import { blogLike } from '../../reducers/blogReducer'
 
 class Blog extends React.Component {
 
@@ -16,13 +17,8 @@ class Blog extends React.Component {
 
     submitLike = (e) => {
         e.preventDefault()
-        this.props.blog.likes += 1
-        blogService.update(this.props.blog).then(result => {
-            console.log("submitLike SUCCESS",result)
-            this.props.notificationChange("You liked " + this.props.blog.title, 5)
-        }).catch(error => {
-            console.log("submitLike ERROR",error)
-        })
+        this.props.blogLike(this.props.blog)
+        this.props.notificationChange("You liked " + this.props.blog.title, 5)
     }
 
     deleteBlog = (e) => {
@@ -94,7 +90,8 @@ class Blog extends React.Component {
 }
 
 const mapDispatchToProps = {
-    notificationChange
+    notificationChange,
+    blogLike
 }
 
 const ConnectedBlog = connect(

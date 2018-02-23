@@ -13,6 +13,15 @@ const reducer = (store = initialState, action) => {
       return newList
     }
 
+    if (action.type === 'LIKE') {
+        const notLiked = store.filter(b => b.id !== action.id)
+        const liked = store.find(b => b.id === action.id)
+        const changed = { ...liked, likes: liked.likes + 1 }
+        return store.map((blog => {
+          return blog.id === action.id ? changed : blog
+        }))
+      }
+
     return store
   }
 
@@ -32,6 +41,17 @@ export const blogCreation = (content) => {
       dispatch({
         type: 'CREATE',
         content: response
+      })
+    }
+  }
+
+
+export const blogLike = (blog) => {
+    return async (dispatch) => {
+      const response = await blogService.update({ ...blog, likes: blog.likes + 1})
+      dispatch({
+        type: 'LIKE',
+        id: response._id
       })
     }
   }
