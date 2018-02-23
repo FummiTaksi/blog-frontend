@@ -1,11 +1,14 @@
 import notificationReducer from './reducers/notificationReducer'
-import { createStore, combineReducers} from 'redux'
-import { Provider } from 'react-redux'
+import { createStore, combineReducers, applyMiddleware} from 'redux'
+import thunk from 'redux-thunk'
 
 const reducer = combineReducers({
     notification: notificationReducer
   })
 
-const store = createStore(reducer)
+const store = createStore(
+    reducer,
+    applyMiddleware(thunk)
+)
 
 export default store
