@@ -22,6 +22,11 @@ const reducer = (store = initialState, action) => {
         }))
       }
 
+    if (action.type === 'DELETE') {
+      const notDeleted = store.filter(b => b.id !== action.id)
+      return notDeleted
+    }
+
     return store
   }
 
@@ -55,5 +60,16 @@ export const blogLike = (blog) => {
       })
     }
   }
+
+export const blogDeletion = (blog) => {
+  return async (dispatch) => {
+    const response = await blogService.deleteBlog(blog)
+    console.log("RESPONSE",response)
+    dispatch({
+      type: 'DELETE',
+      id: response.id
+    })
+  }
+}
 
 export default reducer

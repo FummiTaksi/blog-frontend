@@ -1,9 +1,8 @@
 import React from 'react'
-import blogService from '../../services/blogService'
 import loginService from '../../services/loginService'
 import { connect } from 'react-redux'
 import { notificationChange } from '../../reducers/notificationReducer'
-import { blogLike } from '../../reducers/blogReducer'
+import { blogLike, blogDeletion} from '../../reducers/blogReducer'
 
 class Blog extends React.Component {
 
@@ -25,12 +24,8 @@ class Blog extends React.Component {
         e.preventDefault();
         const title = this.props.blog.title
         if (window.confirm("haluatko varmasti poistaa blogin " + title + " ?")) {
-            blogService.deleteBlog(this.props.blog).then(result => {
-                console.log("deleteBlog SUCCESS",result)
-                this.props.notificationChange("Blog " + title + " deleted successfully!", 5)
-            }).catch(error => {
-                console.log("deleteBlog ERROR",error)
-            })
+            this.props.blogDeletion(this.props.blog)
+            this.props.notificationChange("Blog " + title + " deleted successfully!", 5)
         }
     }
 
@@ -91,7 +86,8 @@ class Blog extends React.Component {
 
 const mapDispatchToProps = {
     notificationChange,
-    blogLike
+    blogLike,
+    blogDeletion
 }
 
 const ConnectedBlog = connect(
