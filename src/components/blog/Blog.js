@@ -19,10 +19,7 @@ class Blog extends React.Component {
         this.props.blog.likes += 1
         blogService.update(this.props.blog).then(result => {
             console.log("submitLike SUCCESS",result)
-            this.props.notificationChange("You liked " + this.props.blog.title)
-            setTimeout(() => {
-                this.props.notificationChange("")
-              },5000)
+            this.props.notificationChange("You liked " + this.props.blog.title, 5)
         }).catch(error => {
             console.log("submitLike ERROR",error)
         })
@@ -34,10 +31,7 @@ class Blog extends React.Component {
         if (window.confirm("haluatko varmasti poistaa blogin " + title + " ?")) {
             blogService.deleteBlog(this.props.blog).then(result => {
                 console.log("deleteBlog SUCCESS",result)
-                this.props.notificationChange("Blog " + title + " deleted successfully!")
-                setTimeout(() => {
-                    this.props.notificationChange("")
-                  },5000)
+                this.props.notificationChange("Blog " + title + " deleted successfully!", 5)
             }).catch(error => {
                 console.log("deleteBlog ERROR",error)
             })

@@ -58,10 +58,10 @@ class BlogApp extends React.Component {
 
       alterNotification = async (message) => {
         console.log("ALTER NOTIFICATION")
-        this.props.notificationChange(message)
-        setTimeout(() => {
+        this.props.notificationChange(message, 5)
+        /*setTimeout(() => {
           this.props.notificationChange("")
-        },5000)
+        },5000)*/
       }
 
     viewForSignedInUser =  () => {

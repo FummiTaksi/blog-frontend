@@ -26,15 +26,9 @@ class BlogForm extends React.Component {
         e.preventDefault()
         const response = blogService.create(this.state)
         response.then(result => {
-            this.props.notificationChange("A new blog '" + result.data.title + "' by " + result.data.author + " added succesfully")
-            setTimeout(() => {
-                this.props.notificationChange("")
-              },5000)
+            this.props.notificationChange("A new blog '" + result.data.title + "' by " + result.data.author + " added succesfully", 5)
         }).catch(error => {
-            this.props.notificationChange("Error occured")
-            setTimeout(() => {
-                this.props.notificationChange("")
-              },5000)
+            this.props.notificationChange("Error occured", 5)
         })
         this.resetFields()
     }
