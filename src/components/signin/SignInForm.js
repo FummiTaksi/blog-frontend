@@ -1,5 +1,7 @@
 import React from 'react'
 import loginService from '../../services/loginService'
+import { login } from '../../reducers/loginReducer'
+import { connect } from 'react-redux'
 import Input from '../input/Input'
 
 class SignInForm extends React.Component {
@@ -39,13 +41,13 @@ class SignInForm extends React.Component {
             username: this.state.username,
              password: this.state.password
             }
-        const response = await loginService.login(credentials)
-        if (response.data) {
+        this.props.login(credentials)
+       /* if (response.data) {
             this.setTokenAndResetFields(response.data)
         }
         else {
             this.props.loginFail("Wrong username or password")
-        }
+        }*/
     }
 
     render() {
@@ -72,4 +74,13 @@ class SignInForm extends React.Component {
     }
 }
 
-export default SignInForm
+const mapDispatchToProps = {
+    login
+}
+
+const ConnectedSignInForm = connect(
+    null,
+    mapDispatchToProps
+  )(SignInForm)
+
+export default ConnectedSignInForm

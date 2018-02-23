@@ -22,7 +22,8 @@ const setToken = (newToken) => {
 
 const login = async (credentials) => {
     try {
-        return await axios.post(baseUrl, credentials)
+        const response =  await axios.post(baseUrl, credentials)
+        return response.data
     }
     catch(error) {
         return error
