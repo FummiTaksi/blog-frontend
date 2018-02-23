@@ -2,8 +2,9 @@ import axios from 'axios'
 import loginService from './loginService'
 const baseUrl = "/api/blogs"
 
-const getAll = () => {
-    return axios.get(baseUrl)
+const getAll = async() => {
+    const response = await axios.get(baseUrl)
+    return response.data
 }
 
 const getUrlOfBlog = (blog) => {

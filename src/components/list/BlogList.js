@@ -1,37 +1,21 @@
 import React from 'react'
 import blogService from '../../services/blogService'
+import { blogInitialization } from '../../reducers/blogReducer'
+import { connect } from 'react-redux'
 import Blog from '../blog/Blog'
 
 class BlogList extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            blogs: []
-        }
     }
 
-    updateBlogList() {
-        blogService.getAll().then(response => {
-            this.setState({
-                blogs: response.data
-            })
-        }).catch(error => {
-            console.log(error)
-        })
+    componentDidMount() {
+        this.props.blogInitialization()
     }
-
-    componentWillReceiveProps() {
-      this.updateBlogList()
-    }
-
-    componentWillMount() {
-        this.updateBlogList()
-    }
-
 
     makeListOfElements = () => {
-       const copyList =  this.state.blogs.slice()
+       const copyList =  this.props.blogs.slice()
        const sorted = copyList.sort((a,b) => {
            return b.likes - a.likes
        })
@@ -49,4 +33,15 @@ class BlogList extends React.Component {
     }
 }
 
-export default BlogList
+const mapStateToProps = (state) => {
+    return {
+      blogs: state.blogs
+    }
+  }
+  
+  const ConnectedBlogList = connect(
+    mapStateToProps, 
+    { blogInitialization }
+  )(BlogList)
+
+export default ConnectedBlogList
