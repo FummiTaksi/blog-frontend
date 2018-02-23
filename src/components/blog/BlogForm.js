@@ -1,8 +1,8 @@
 import React from 'react'
 import Input from '../input/Input'
-import blogService from '../../services/blogService'
 import { connect } from 'react-redux'
 import { notificationChange } from '../../reducers/notificationReducer'
+import { blogCreation } from '../../reducers/blogReducer'
 
 class BlogForm extends React.Component {
 
@@ -22,14 +22,15 @@ class BlogForm extends React.Component {
         })
     }
 
+    notificationForSuccessfullCreation = () => {
+        return "A new blog " + this.state.title + " by " + this.state.author + 
+               " was created successfully!"
+    }
+
     createBlog =  (e) => {
         e.preventDefault()
-        const response = blogService.create(this.state)
-        response.then(result => {
-            this.props.notificationChange("A new blog '" + result.data.title + "' by " + result.data.author + " added succesfully", 5)
-        }).catch(error => {
-            this.props.notificationChange("Error occured", 5)
-        })
+        this.props.blogCreation(this.state)
+        this.props.notificationChange(this.notificationForSuccessfullCreation(), 5)
         this.resetFields()
     }
 
@@ -71,7 +72,8 @@ class BlogForm extends React.Component {
 }
 
 const mapDispatchToProps = {
-    notificationChange
+    notificationChange,
+    blogCreation
 }
 
 const ConnectedBlogForm = connect(

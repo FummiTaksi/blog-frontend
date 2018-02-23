@@ -1,14 +1,9 @@
 import React from 'react'
-import blogService from '../../services/blogService'
 import { blogInitialization } from '../../reducers/blogReducer'
 import { connect } from 'react-redux'
 import Blog from '../blog/Blog'
 
 class BlogList extends React.Component {
-
-    constructor(props) {
-        super(props)
-    }
 
     componentDidMount() {
         this.props.blogInitialization()

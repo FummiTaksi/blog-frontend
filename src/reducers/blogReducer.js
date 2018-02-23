@@ -8,6 +8,11 @@ const reducer = (store = initialState, action) => {
       return action.content
     }
 
+    if (action.type === 'CREATE') {
+      const newList = [...store, action.content]
+      return newList
+    }
+
     return store
   }
 
@@ -20,5 +25,15 @@ export const blogInitialization = () => {
       })
     }
 }
+
+export const blogCreation = (content) => {
+    return async (dispatch) => {
+      const response = await blogService.create(content)
+      dispatch({
+        type: 'CREATE',
+        content: response
+      })
+    }
+  }
 
 export default reducer

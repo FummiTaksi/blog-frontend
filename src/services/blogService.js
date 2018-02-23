@@ -11,13 +11,13 @@ const getUrlOfBlog = (blog) => {
     return baseUrl + "/" + blog.id
 }
 
-const create =  (blog) => {
+const create =  async(blog) => {
     const token  = loginService.getToken()
     const config = {
         headers: { 'Authorization': token }
       }
-    return axios.post(baseUrl, blog, config)
-
+    const response = await axios.post(baseUrl, blog, config)
+    return response.data
 }
 
 const update = (blog) => {
