@@ -67,13 +67,13 @@ class BlogApp extends React.Component {
     viewForSignedInUser =  () => {
         return (
             <div>
-                <Notification message = {this.state.notification}/>
+                <Notification/>
                 <SignedUserInfo 
                     currentUser = {this.state.currentUser}
                     logOutFunction = {this.logOut}
                  />   
                  <Togglable buttonLabel= "create new blog">
-                   <BlogForm  alterNotification = {this.alterNotification}/>
+                   <BlogForm/>
                  </Togglable>              
                 <BlogList alterNotification = {this.alterNotification} />
             </div>
@@ -83,7 +83,7 @@ class BlogApp extends React.Component {
     viewForNotSignedInUser = () => {
         return (
             <div className = "notSignedIn">
-              <Notification message = {this.state.notification} />
+              <Notification/>
               <SignInForm
                 updateUser = {this.updateUser}
                 loginFail = {this.alterNotification}

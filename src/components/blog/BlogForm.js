@@ -1,6 +1,8 @@
 import React from 'react'
 import Input from '../input/Input'
 import blogService from '../../services/blogService'
+import { connect } from 'react-redux'
+import { notificationChange } from '../../reducers/notificationReducer'
 
 class BlogForm extends React.Component {
 
@@ -24,9 +26,9 @@ class BlogForm extends React.Component {
         e.preventDefault()
         const response = blogService.create(this.state)
         response.then(result => {
-            this.props.alterNotification("A new blog '" + result.data.title + "' by " + result.data.author + " added succesfully")
+            this.props.notificationChange("A new blog '" + result.data.title + "' by " + result.data.author + " added succesfully")
         }).catch(error => {
-            this.props.alterNotification("Error occured")
+            this.props.notificationChange("Error occured")
         })
         this.resetFields()
     }
@@ -68,4 +70,13 @@ class BlogForm extends React.Component {
     }
 }
 
-export default BlogForm
+const mapDispatchToProps = {
+    notificationChange
+}
+
+const ConnectedBlogForm = connect(
+    null,
+    mapDispatchToProps
+  )(BlogForm)
+
+export default ConnectedBlogForm
