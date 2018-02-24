@@ -1,5 +1,4 @@
 import React from 'react'
-import loginService from '../../services/loginService'
 import { login } from '../../reducers/loginReducer'
 import { connect } from 'react-redux'
 import Input from '../input/Input'

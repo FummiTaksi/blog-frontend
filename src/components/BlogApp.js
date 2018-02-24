@@ -4,7 +4,6 @@ import SignedUserInfo from './signin/SignedUserInfo'
 import BlogList from './list/BlogList'
 import BlogForm from './blog/BlogForm'
 import Notification from './notification/Notification'
-import loginService from '../services/loginService'
 import Togglable from './togglable/Togglable'
 
 import { connect } from 'react-redux'
