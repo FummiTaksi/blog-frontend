@@ -17,7 +17,10 @@ class BlogApp extends React.Component {
     }
 
     logOut() {
+
         this.props.logout()
+        console.log("LOGOUT!!!")
+        this.props.notificationChange("Thank you come again", 5)
     }
  
 
@@ -27,7 +30,7 @@ class BlogApp extends React.Component {
                 <Notification/>
                 <SignedUserInfo 
                     currentUser = {this.props.credentials.name}
-                    logOutFunction = {this.props.logout}
+                    logOutFunction = {() => this.logOut()}
                  />   
                  <Togglable buttonLabel= "create new blog">
                    <BlogForm/>

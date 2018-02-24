@@ -3,7 +3,6 @@ import blogReducer from './reducers/blogReducer'
 import loginReducer from './reducers/loginReducer'
 import { createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
-import { logger } from './services/loginService'
 import { tokenChanger} from './services/blogService'
 
 const reducer = combineReducers({
