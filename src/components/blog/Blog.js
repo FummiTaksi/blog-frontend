@@ -1,5 +1,4 @@
 import React from 'react'
-import loginService from '../../services/loginService'
 import { connect } from 'react-redux'
 import { notificationChange } from '../../reducers/notificationReducer'
 import { blogLike, blogDeletion} from '../../reducers/blogReducer'
