@@ -31,7 +31,9 @@ class Blog extends React.Component {
 
     isDeleteAllowed = () => {
         const currentUser = loginService.getCurrentUser()
+        console.log("POISTO METODI, CURRENT USER:",currentUser.username)
         const blogsUser = this.props.blog.user
+        console.log("blogsUser",blogsUser.username)
         return !blogsUser || currentUser.username === blogsUser.username
     }
 
@@ -72,6 +74,7 @@ class Blog extends React.Component {
 
     render() {
         const blog = this.props.blog
+        console.log("BLOGI JOTA KATSOTAAN",blog)
         const user = blog.user ? blog.user.name : "No user!"
         const smallMode = this.state.smallMode
         return (

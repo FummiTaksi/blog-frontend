@@ -43,6 +43,7 @@ export const blogInitialization = () => {
 export const blogCreation = (content) => {
     return async (dispatch) => {
       const response = await blogService.create(content)
+      console.log("RESPONSE blogCreation",response)
       dispatch({
         type: 'CREATE',
         content: response

@@ -9,64 +9,26 @@ import Togglable from './togglable/Togglable'
 
 import { connect } from 'react-redux'
 import { notificationChange } from '../reducers/notificationReducer'
+import {login, logout, init} from '../reducers/loginReducer'
 
 class BlogApp extends React.Component {
     
-    constructor(props) {
-        super(props)
-        this.state = {
-            user: "",
-            currentUser: "",
-            notification: ""
-        }
+    componentDidMount() {
+        this.props.init()
     }
 
-    updateUser = (userInfo) => {
-        window.localStorage.setItem('loggedUser', JSON.stringify(userInfo))
-        this.setState({
-            user: userInfo.token,
-            currentUser: userInfo.name
-        })
-        loginService.setCurrentUser(userInfo)
-        this.alterNotification("Welcome back!")
+    logOut() {
+        this.props.logout()
     }
-    componentWillMount() {
-        const loggedUserJSON = window.localStorage.getItem('loggedUser')
-        if (loggedUserJSON) {
-          const user = JSON.parse(loggedUserJSON)
-          this.setState({
-              user: user.token,
-              currentUser: user.name
-            })
-          loginService.setToken(user.token)
-          loginService.setCurrentUser(user)
-        }
-        else {
-            this.logOut()
-        }
-      }
-
-      logOut = () => {
-          this.setState({
-              user:"",
-              currentUser:""
-          })
-          window.localStorage.removeItem("loggedUser")
-          loginService.setToken("")
-          loginService.setCurrentUser(undefined)
-      }
-
-      alterNotification = async (message) => {
-        this.props.notificationChange(message, 5)
-      }
+ 
 
     viewForSignedInUser =  () => {
         return (
             <div>
                 <Notification/>
                 <SignedUserInfo 
-                    currentUser = {this.state.currentUser}
-                    logOutFunction = {this.logOut}
+                    currentUser = {this.props.credentials.name}
+                    logOutFunction = {this.props.logout}
                  />   
                  <Togglable buttonLabel= "create new blog">
                    <BlogForm/>
@@ -80,32 +42,41 @@ class BlogApp extends React.Component {
         return (
             <div className = "notSignedIn">
               <Notification/>
-              <SignInForm
-                updateUser = {this.updateUser}
-                loginFail = {this.alterNotification}
-               /> 
+              <SignInForm/> 
             </div>
         )
     }
     
     render() {
 
+        console.log("CREDENTIALS",this.props.credentials)
+        const username = this.props.credentials.username
+        console.log("USERNAME",username)
         return (
             <div className = "blogApp">
-                {this.state.user.length > 0 && this.viewForSignedInUser()}
-                {this.state.user.length === 0 && this.viewForNotSignedInUser()}
+                {username  && this.viewForSignedInUser()}
+                {!username && this.viewForNotSignedInUser()}
             </div>
         )
         
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        credentials: state.login
+    }
+}
+
 const mapDispatchToProps = {
-    notificationChange
+    notificationChange,
+    login,
+    logout,
+    init
 }
 
 const ConnectedBlogApp = connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
   )(BlogApp)
 export default ConnectedBlogApp
