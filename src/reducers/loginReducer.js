@@ -6,11 +6,6 @@ const initialState = {
     token : ""
 }
 
-const updateService = (credentials) => {
-    loginService.setCurrentUser(credentials)
-    loginService.setToken(credentials.token)
-}
-
 const reducer = (store = initialState, action) => {
     if (action.type === 'LOGIN') {
         const userInfo = {
@@ -18,7 +13,6 @@ const reducer = (store = initialState, action) => {
             token: action.token,
             name: action.name
         }
-        updateService(userInfo)
         window.localStorage.setItem('loggedUser', JSON.stringify(userInfo))
         return {
             username: action.username,
@@ -27,7 +21,6 @@ const reducer = (store = initialState, action) => {
         }
     }
     if (action.type === 'LOGOUT') {
-        updateService({username: undefined, token: undefined})
         window.localStorage.removeItem('loggedUser')
         return {
             username: undefined,

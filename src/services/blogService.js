@@ -27,11 +27,21 @@ const deleteBlog = async(blog) => {
     return response.data
 }
 
+let token = ''
 const getConfigObject = () => {
-    const token  = loginService.getToken()
     return {
         headers: { 'Authorization': token }
       }
 }
+
+
+
+export const tokenChanger = store => next => action => {
+    next(action)
+    const state = store.getState()
+    console.log("state",state)
+    const newToken = state.login.token
+    token = `bearer ${newToken}`
+  }
 
 export default {getAll, create, update, deleteBlog}

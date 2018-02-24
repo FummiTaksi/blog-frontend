@@ -3,6 +3,8 @@ import blogReducer from './reducers/blogReducer'
 import loginReducer from './reducers/loginReducer'
 import { createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
+import { logger } from './services/loginService'
+import { tokenChanger} from './services/blogService'
 
 const reducer = combineReducers({
     notification: notificationReducer,
@@ -12,7 +14,7 @@ const reducer = combineReducers({
 
 const store = createStore(
     reducer,
-    applyMiddleware(thunk)
+    applyMiddleware(thunk, tokenChanger)
 )
 
 export default store
