@@ -30,11 +30,9 @@ class Blog extends React.Component {
     }
 
     isDeleteAllowed = () => {
-        const currentUser = loginService.getCurrentUser()
-        console.log("POISTO METODI, CURRENT USER:",currentUser.username)
+        const currentUsername = this.props.credentials.username
         const blogsUser = this.props.blog.user
-        console.log("blogsUser",blogsUser.username)
-        return !blogsUser || currentUser.username === blogsUser.username
+        return !blogsUser || currentUsername === blogsUser.username
     }
 
     renderButton = () => {
@@ -86,6 +84,13 @@ class Blog extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        credentials: state.login
+    }
+    
+}
+
 const mapDispatchToProps = {
     notificationChange,
     blogLike,
@@ -93,7 +98,7 @@ const mapDispatchToProps = {
 }
 
 const ConnectedBlog = connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
   )(Blog)
 export default ConnectedBlog
