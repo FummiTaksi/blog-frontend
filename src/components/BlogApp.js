@@ -48,10 +48,7 @@ class BlogApp extends React.Component {
     }
     
     render() {
-
-        console.log("CREDENTIALS",this.props.credentials)
         const username = this.props.credentials.username
-        console.log("USERNAME",username)
         return (
             <div className = "blogApp">
                 {username  && this.viewForSignedInUser()}

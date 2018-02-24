@@ -13,7 +13,6 @@ const updateService = (credentials) => {
 
 const reducer = (store = initialState, action) => {
     if (action.type === 'LOGIN') {
-        console.log("LOGIN, ACTION: ",action)
         const userInfo = {
             username: action.username,
             token: action.token,
@@ -42,7 +41,6 @@ const reducer = (store = initialState, action) => {
 export const login = (credentials) => {
     return async (dispatch) => {
         const response = await loginService.login(credentials)
-        console.log("RESPONSE",response)
         dispatch({
             type: 'LOGIN',
             username: response.username,
@@ -65,7 +63,6 @@ export const init = () => {
         const loggedUserJSON = window.localStorage.getItem('loggedUser')
         if (loggedUserJSON) {
           const credentials = JSON.parse(loggedUserJSON)
-          console.log("INIT DISPATCHAA:",credentials)
           dispatch({
               type: 'LOGIN',
               username: credentials.username,

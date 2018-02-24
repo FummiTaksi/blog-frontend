@@ -74,7 +74,6 @@ class Blog extends React.Component {
 
     render() {
         const blog = this.props.blog
-        console.log("BLOGI JOTA KATSOTAAN",blog)
         const user = blog.user ? blog.user.name : "No user!"
         const smallMode = this.state.smallMode
         return (
