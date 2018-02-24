@@ -22,7 +22,7 @@ class BlogList extends React.Component {
     render() {
         return (
             <div>
-                   {this.makeListOfElements()}
+              {this.makeListOfElements()}
             </div>
         )
     }
