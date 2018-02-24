@@ -20,21 +20,6 @@ class SignInForm extends React.Component {
         })
     }
 
-    setTokenAndResetFields = (data) => {
-        const userInfo = {
-            token: data.token,
-            name: data.name,
-            username: this.state.username,
-            password: this.state.password
-        }
-        this.setState({
-            username: "",
-            password: ""
-        })
-        loginService.setToken(userInfo.token)
-        this.props.updateUser(userInfo)
-    }
-
     logIn = async (e) => {
         e.preventDefault();
         const credentials = {
@@ -42,6 +27,10 @@ class SignInForm extends React.Component {
              password: this.state.password
             }
         this.props.login(credentials)
+        this.setState({
+            username: "",
+            password: ""
+        })
     }
 
     render() {
