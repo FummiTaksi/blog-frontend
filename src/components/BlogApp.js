@@ -7,7 +7,6 @@ import Notification from './notification/Notification'
 import Togglable from './togglable/Togglable'
 
 import { connect } from 'react-redux'
-import { notificationChange } from '../reducers/notificationReducer'
 import {login, logout, init} from '../reducers/loginReducer'
 
 class BlogApp extends React.Component {
@@ -16,21 +15,13 @@ class BlogApp extends React.Component {
         this.props.init()
     }
 
-    logOut() {
-
-        this.props.logout()
-        console.log("LOGOUT!!!")
-        this.props.notificationChange("Thank you come again", 5)
-    }
- 
-
     viewForSignedInUser =  () => {
         return (
             <div>
                 <Notification/>
                 <SignedUserInfo 
                     currentUser = {this.props.credentials.name}
-                    logOutFunction = {() => this.logOut()}
+                    logOutFunction = {() => this.props.logout()}
                  />   
                  <Togglable buttonLabel= "create new blog">
                    <BlogForm/>
@@ -68,7 +59,6 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    notificationChange,
     login,
     logout,
     init

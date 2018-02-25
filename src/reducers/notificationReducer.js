@@ -24,4 +24,17 @@ export const notificationChange = (message, time) => {
     }
 }
 
+export const dispatchNotification = (dispatch,message) => {
+    dispatch({
+        type: 'CHANGE_NOTIFICATION',
+        message: message
+      })
+      setTimeout(() => {
+        dispatch({
+          type: 'CHANGE_NOTIFICATION',
+          message: ''
+      })
+     },5 * 1000) 
+}
+
 export default reducer

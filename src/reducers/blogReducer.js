@@ -1,4 +1,5 @@
 import blogService from '../services/blogService'
+import { dispatchNotification } from './notificationReducer'
 
 const initialState = []
 
@@ -42,32 +43,56 @@ export const blogInitialization = () => {
 
 export const blogCreation = (content) => {
     return async (dispatch) => {
-      const response = await blogService.create(content)
-      dispatch({
-        type: 'CREATE',
-        content: response
-      })
+      try {
+        const response = await blogService.create(content)
+        const message =  'Blog ' + content.title + ' by ' + content.author + 
+                         ' was created successfully!'
+        dispatch({
+          type: 'CREATE',
+          content: response
+        })
+        dispatchNotification(dispatch,message)  
+      }
+      catch(error) {
+       dispatchNotification(dispatch, 'Error at creating blog.')
+      }
+
     }
   }
 
 
 export const blogLike = (blog) => {
     return async (dispatch) => {
-      const response = await blogService.update({ ...blog, likes: blog.likes + 1})
-      dispatch({
-        type: 'LIKE',
-        id: response.id
-      })
+      try {
+        const response = await blogService.update({ ...blog, likes: blog.likes + 1})
+        dispatch({
+          type: 'LIKE',
+          id: response.id
+        })
+        const message = 'You liked ' + blog.title + '!'
+        dispatchNotification(dispatch, message)
+      }
+      catch(error) {
+        dispatchNotification(dispatch, 'Error at liking blog')
+      }
     }
   }
 
 export const blogDeletion = (blog) => {
   return async (dispatch) => {
+    try {
     const response = await blogService.deleteBlog(blog)
     dispatch({
       type: 'DELETE',
       id: response.id
     })
+    const message = 'Blog ' + blog.title + ' was deleted.'
+    dispatchNotification(dispatch, message)
+  }
+    catch(error) {
+      const message = blog.title + " was NOT deleted!"
+      dispatchNotification(dispatch, message)
+   }
   }
 }
 

@@ -1,4 +1,5 @@
 import loginService from '../services/loginService'
+import { dispatchNotification } from './notificationReducer'
 
 const initialState = {
     username: undefined,
@@ -33,21 +34,29 @@ const reducer = (store = initialState, action) => {
 
 export const login = (credentials) => {
     return async (dispatch) => {
-        const response = await loginService.login(credentials)
-        dispatch({
-            type: 'LOGIN',
-            username: response.username,
-            name: response.name,
-            token: response.token
-        })
+        try {
+            const response = await loginService.login(credentials)
+            console.log("RESPONSE",response)
+            dispatch({
+                type: 'LOGIN',
+                username: response.username,
+                name: response.name,
+                token: response.token
+            })
+            const message = 'Welcome back ' + response.name + '!'
+            dispatchNotification(dispatch, message)
+        }
+        catch(error) {
+            dispatchNotification(dispatch, 'Wrong username or password!')
+        }
     }
 }
-
 export const logout = () => {
     return async (dispatch) => {
         dispatch({
             type: 'LOGOUT'
         })
+        dispatchNotification(dispatch, 'Thank you, come again!')
     }
 }
 

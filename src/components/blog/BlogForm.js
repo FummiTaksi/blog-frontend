@@ -1,7 +1,6 @@
 import React from 'react'
 import Input from '../input/Input'
 import { connect } from 'react-redux'
-import { notificationChange } from '../../reducers/notificationReducer'
 import { blogCreation } from '../../reducers/blogReducer'
 
 class BlogForm extends React.Component {
@@ -21,16 +20,9 @@ class BlogForm extends React.Component {
             [e.target.name]: e.target.value
         })
     }
-
-    notificationForSuccessfullCreation = () => {
-        return "A new blog " + this.state.title + " by " + this.state.author + 
-               " was created successfully!"
-    }
-
     createBlog =  (e) => {
         e.preventDefault()
         this.props.blogCreation(this.state)
-        this.props.notificationChange(this.notificationForSuccessfullCreation(), 5)
         this.resetFields()
     }
 
@@ -72,7 +64,6 @@ class BlogForm extends React.Component {
 }
 
 const mapDispatchToProps = {
-    notificationChange,
     blogCreation
 }
 

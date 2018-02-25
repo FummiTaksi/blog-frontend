@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { notificationChange } from '../../reducers/notificationReducer'
 import { blogLike, blogDeletion} from '../../reducers/blogReducer'
 
 class Blog extends React.Component {
@@ -16,7 +15,6 @@ class Blog extends React.Component {
     submitLike = (e) => {
         e.preventDefault()
         this.props.blogLike(this.props.blog)
-        this.props.notificationChange("You liked " + this.props.blog.title, 5)
     }
 
     deleteBlog = (e) => {
@@ -24,7 +22,6 @@ class Blog extends React.Component {
         const title = this.props.blog.title
         if (window.confirm("haluatko varmasti poistaa blogin " + title + " ?")) {
             this.props.blogDeletion(this.props.blog)
-            this.props.notificationChange("Blog " + title + " deleted successfully!", 5)
         }
     }
 
@@ -91,7 +88,6 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    notificationChange,
     blogLike,
     blogDeletion
 }
