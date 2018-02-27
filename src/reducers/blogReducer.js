@@ -5,16 +5,16 @@ const initialState = []
 
 const reducer = (store = initialState, action) => {
 
-    if (action.type === 'INIT') {
+    if (action.type === 'INIT_BLOGS') {
       return action.content
     }
 
-    if (action.type === 'CREATE') {
+    if (action.type === 'CREATE_BLOG') {
       const newList = [...store, action.content]
       return newList
     }
 
-    if (action.type === 'LIKE') {
+    if (action.type === 'LIKE_BLOG') {
         const notLiked = store.filter(b => b.id !== action.id)
         const liked = store.find(b => b.id === action.id)
         const changed = { ...liked, likes: liked.likes + 1 }
@@ -23,7 +23,7 @@ const reducer = (store = initialState, action) => {
         }))
       }
 
-    if (action.type === 'DELETE') {
+    if (action.type === 'DELETE_BLOG') {
       const notDeleted = store.filter(b => b.id !== action.id)
       return notDeleted
     }
@@ -35,7 +35,7 @@ export const blogInitialization = () => {
     return async (dispatch) => {
       const blogs = await blogService.getAll()
       dispatch({
-        type: 'INIT',
+        type: 'INIT_BLOGS',
         content: blogs
       })
     }
@@ -48,7 +48,7 @@ export const blogCreation = (content) => {
         const message =  'Blog ' + content.title + ' by ' + content.author + 
                          ' was created successfully!'
         dispatch({
-          type: 'CREATE',
+          type: 'CREATE_BLOG',
           content: response
         })
         dispatchNotification(dispatch,message)  
@@ -66,7 +66,7 @@ export const blogLike = (blog) => {
       try {
         const response = await blogService.update({ ...blog, likes: blog.likes + 1})
         dispatch({
-          type: 'LIKE',
+          type: 'LIKE_BLOG',
           id: response.id
         })
         const message = 'You liked ' + blog.title + '!'
@@ -83,7 +83,7 @@ export const blogDeletion = (blog) => {
     try {
     const response = await blogService.deleteBlog(blog)
     dispatch({
-      type: 'DELETE',
+      type: 'DELETE_BLOG',
       id: response.id
     })
     const message = 'Blog ' + blog.title + ' was deleted.'
