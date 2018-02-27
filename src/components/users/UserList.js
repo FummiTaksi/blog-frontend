@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { userInitialization } from '../../reducers/userReducer'
+import { Link } from 'react-router-dom'
 
 class UserList extends React.Component {
 
@@ -12,7 +13,7 @@ class UserList extends React.Component {
         return this.props.users.map(user => {
             return (
                 <tr key = {user.id}>
-                    <td>{user.name}</td>
+                    <td><Link to = {`/users/${user.id}`}>{user.name}</Link></td>
                     <td>{user.blogs.length}</td>
                 </tr>
             )
@@ -24,11 +25,13 @@ class UserList extends React.Component {
             <div>
               <h1>Listing all users:</h1>
               <table>
-                  <tr>
+                  <tbody>
+                    <tr>
                       <th>Name</th>
                       <th>Blogs added</th>
-                  </tr>
-                  {this.renderUsers()}
+                    </tr>
+                    {this.renderUsers()}
+                  </tbody>
               </table>
             </div>
         )

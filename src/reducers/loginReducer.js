@@ -61,6 +61,7 @@ export const logout = () => {
 }
 
 export const init = () => {
+    console.log("INIT LOGINUSER")
     return async (dispatch) => {
         const loggedUserJSON = window.localStorage.getItem('loggedUser')
         if (loggedUserJSON) {

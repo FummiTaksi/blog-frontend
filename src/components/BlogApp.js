@@ -5,6 +5,7 @@ import BlogForm from './blog/BlogForm'
 import Notification from './notification/Notification'
 import Togglable from './togglable/Togglable'
 import UserList from './users/UserList'
+import UserInfo from './users/UserInfo'
 
 import { connect } from 'react-redux'
 import {login, logout, init} from '../reducers/loginReducer'
@@ -30,6 +31,11 @@ class BlogApp extends React.Component {
         )
     }
 
+    userById = (id) => {
+        const user = this.props.users.find(user => user.id === id)
+        return user
+    }
+
     viewForSignedInUser = () => {
         return (
             <div>
@@ -42,7 +48,10 @@ class BlogApp extends React.Component {
                     <button onClick = {() => this.props.logout()}>logout</button>
                   </div>
                   <Route exact path="/" render={() => this.BlogPage()} />
-                  <Route path="/users" render={() => <UserList />} />
+                  <Route exact path="/users" render={() => <UserList />} />
+                  <Route exact path="/users/:id" render={({match}) =>
+                    <UserInfo user={this.userById(match.params.id)} />}
+                  />
                 </div>
               </Router>
             </div>
@@ -72,7 +81,8 @@ class BlogApp extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        credentials: state.login
+        credentials: state.login,
+        users: state.users
     }
 }
 
