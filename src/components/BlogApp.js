@@ -5,9 +5,12 @@ import BlogList from './list/BlogList'
 import BlogForm from './blog/BlogForm'
 import Notification from './notification/Notification'
 import Togglable from './togglable/Togglable'
+import UserList from './users/UserList'
 
 import { connect } from 'react-redux'
 import {login, logout, init} from '../reducers/loginReducer'
+
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 class BlogApp extends React.Component {
     
@@ -15,7 +18,7 @@ class BlogApp extends React.Component {
         this.props.init()
     }
 
-    viewForSignedInUser =  () => {
+    BlogPage = () => {
         return (
             <div>
                 <Notification/>
@@ -29,6 +32,23 @@ class BlogApp extends React.Component {
                 <BlogList/>
             </div>
         )
+    }
+
+    viewForSignedInUser = () => {
+        return (
+            <div>
+              <Router>
+                <div>
+                  <div>
+                    <Link to="/">home</Link> &nbsp;
+                    <Link to="/users">users</Link>
+                  </div>
+                  <Route exact path="/" render={() => this.BlogPage()} />
+                  <Route path="/users" render={() => <UserList />} />
+                </div>
+              </Router>
+            </div>
+          )
     }
 
     viewForNotSignedInUser = () => {
