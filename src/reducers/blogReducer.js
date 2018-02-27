@@ -15,7 +15,6 @@ const reducer = (store = initialState, action) => {
     }
 
     if (action.type === 'LIKE_BLOG') {
-        const notLiked = store.filter(b => b.id !== action.id)
         const liked = store.find(b => b.id === action.id)
         const changed = { ...liked, likes: liked.likes + 1 }
         return store.map((blog => {

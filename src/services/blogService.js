@@ -1,5 +1,4 @@
 import axios from 'axios'
-import loginService from './loginService'
 const baseUrl = "/api/blogs"
 
 const getAll = async() => {

@@ -11,10 +11,10 @@ class UserList extends React.Component {
     renderUsers = () => {
         return this.props.users.map(user => {
             return (
-                <div key = {user.id}>
+                <tr key = {user.id}>
                     <td>{user.name}</td>
                     <td>{user.blogs.length}</td>
-                </div>
+                </tr>
             )
         })
     }
@@ -29,8 +29,6 @@ class UserList extends React.Component {
                       <th>Blogs added</th>
                   </tr>
                   {this.renderUsers()}
-
-
               </table>
             </div>
         )

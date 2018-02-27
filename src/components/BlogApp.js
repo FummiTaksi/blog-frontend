@@ -1,6 +1,5 @@
 import React from 'react'
 import SignInForm from './signin/SignInForm'
-import SignedUserInfo from './signin/SignedUserInfo'
 import BlogList from './list/BlogList'
 import BlogForm from './blog/BlogForm'
 import Notification from './notification/Notification'
@@ -22,10 +21,7 @@ class BlogApp extends React.Component {
         return (
             <div>
                 <Notification/>
-                <SignedUserInfo 
-                    currentUser = {this.props.credentials.name}
-                    logOutFunction = {() => this.props.logout()}
-                 />   
+                <h2>View blogs or create a new one!</h2>
                  <Togglable buttonLabel= "create new blog">
                    <BlogForm/>
                  </Togglable>              
@@ -41,7 +37,9 @@ class BlogApp extends React.Component {
                 <div>
                   <div>
                     <Link to="/">home</Link> &nbsp;
-                    <Link to="/users">users</Link>
+                    <Link to="/users">users</Link> &nbsp;
+                    You are signed in as {this.props.credentials.name} &nbsp;
+                    <button onClick = {() => this.props.logout()}>logout</button>
                   </div>
                   <Route exact path="/" render={() => this.BlogPage()} />
                   <Route path="/users" render={() => <UserList />} />
