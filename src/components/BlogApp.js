@@ -16,8 +16,8 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 class BlogApp extends React.Component {
     
     componentDidMount() {
-        this.props.init()
         this.props.userInitialization()
+        this.props.init()
     }
 
     BlogPage = () => {
