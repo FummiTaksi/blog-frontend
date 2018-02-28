@@ -25,6 +25,27 @@ class BlogView extends React.Component {
         }
     }
 
+    mapComments = (comments) => {
+        return comments.map(comment => {
+            return <li key = {comment._id}>{comment.content}</li>
+        })
+    }
+    
+    commentSection(comments) {
+        if (comments.length === 0) {
+            return (<h4> This blog dont have comments</h4>)
+        }
+        return (
+            <div>
+              <h4>Comments:</h4>
+              <ul>
+                {this.mapComments(comments)}
+              </ul>
+            </div>
+        )
+
+    }
+
     render() {
         const blog = this.props.blog
         if (!blog) {
@@ -41,6 +62,7 @@ class BlogView extends React.Component {
                 <button onClick = {() => this.props.blogLike(blog)}>like</button>
                 <p>added by {blog.author} </p>
                 {this.renderButton()}
+                {this.commentSection(blog.comments)}
                 </div>
             </div>
         )
