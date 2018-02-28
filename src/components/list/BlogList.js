@@ -1,7 +1,7 @@
 import React from 'react'
 import { blogInitialization } from '../../reducers/blogReducer'
 import { connect } from 'react-redux'
-import Blog from '../blog/Blog'
+import { Link } from 'react-router-dom'
 
 class BlogList extends React.Component {
 
@@ -15,15 +15,19 @@ class BlogList extends React.Component {
            return b.likes - a.likes
        })
         return sorted.map((blog) => {
-            return <Blog key = {blog.id} blog = {blog}/>
+            return (
+              <li key = {blog.id}>
+                <Link to = {`/blogs/${blog.id}`}>{blog.title} {blog.author}</Link>
+              </li>
+            )
         }) 
     }
 
     render() {
         return (
-            <div>
+            <ul>
               {this.makeListOfElements()}
-            </div>
+            </ul>
         )
     }
 }
