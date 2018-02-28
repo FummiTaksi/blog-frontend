@@ -51,7 +51,7 @@ class BlogApp extends React.Component {
                   </div>
                   <Route exact path="/" render={() => this.BlogPage()} />
                   <Route exact path="/users" render={() => <UserList />} />
-                  <Route exact path="/users/:id" render={({match}) =>
+                  <Route  path="/users/:id" render={({match}) =>
                     <UserInfo user={this.userById(match.params.id)} />}
                   />
                 </div>
