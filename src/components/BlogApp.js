@@ -13,7 +13,7 @@ import {login, logout, initCurrentUser} from '../reducers/loginReducer'
 import { userInitialization } from '../reducers/userReducer'
 import { blogInitialization } from '../reducers/blogReducer'
 
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { HashRouter as Router, Route, Link } from 'react-router-dom'
 
 class BlogApp extends React.Component {
     
