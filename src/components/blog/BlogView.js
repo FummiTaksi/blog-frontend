@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { connect } from 'react-redux'
 import { blogLike, blogDeletion} from '../../reducers/blogReducer'
 class BlogView extends React.Component {
@@ -43,7 +42,6 @@ class BlogView extends React.Component {
                 <p>added by {blog.author} </p>
                 {this.renderButton()}
                 </div>
-            
             </div>
         )
     }
