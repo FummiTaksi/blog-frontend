@@ -10,6 +10,9 @@ class UserInfo extends React.Component {
 
     render() {
         console.log("USER",this.props.user)
+        if (!this.props.user) {
+            return null
+        }
         return (
             <div>
                 <h3>{this.props.user.name}</h3>

@@ -38,12 +38,14 @@ class SignInForm extends React.Component {
             <h2>Welcome to blog-app!</h2>
             <form onSubmit={this.logIn}>
                 <Input
+                    type = "input"
                     text = "Username:" 
                     name = "username"
                     value = {this.state.username}
                     onChange = {this.handleFormChange}
                  />  
                 <Input 
+                    type = "password"
                     text = "Password:"
                     name = "password"
                     value = {this.state.password}

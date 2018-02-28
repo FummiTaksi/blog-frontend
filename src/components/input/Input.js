@@ -7,6 +7,7 @@ class Input extends React.Component {
             <div>
                 {this.props.text}
                 <input 
+                  type = {this.props.type}
                   name = {this.props.name}
                   value = {this.props.value}
                   onChange = {this.props.onChange}

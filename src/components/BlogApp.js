@@ -9,6 +9,7 @@ import UserInfo from './users/UserInfo'
 
 import { connect } from 'react-redux'
 import {login, logout, init} from '../reducers/loginReducer'
+import { userInitialization } from '../reducers/userReducer'
 
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
@@ -16,6 +17,7 @@ class BlogApp extends React.Component {
     
     componentDidMount() {
         this.props.init()
+        this.props.userInitialization()
     }
 
     BlogPage = () => {
@@ -89,7 +91,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     login,
     logout,
-    init
+    init,
+    userInitialization
 }
 
 const ConnectedBlogApp = connect(
