@@ -11,7 +11,7 @@ class UserInfo extends React.Component {
     render() {
         console.log("USER",this.props.user)
         if (!this.props.user) {
-            return null
+            return <p>Loading...</p>
         }
         return (
             <div>
